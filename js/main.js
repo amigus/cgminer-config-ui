@@ -25,7 +25,7 @@ angular.module('cgminerConfigUI',[]).controller('cgminerConfigCtrl', function ($
 		}
 
 		var pools = $scope.cgminerConfig.pools;
-		
+
 		$scope.cgminerConfig.pools = [];
 		for (var i = 0; i < pools.length; i++) {
 			if (pools[i].url && pools[i].url != "") {
@@ -39,7 +39,7 @@ angular.module('cgminerConfigUI',[]).controller('cgminerConfigCtrl', function ($
 		var a = document.createElement("a");
 		a.download = "cgminer.conf";
 		a.href = URL.createObjectURL(new Blob(
-			[JSON.stringify($scope.cgminerConfig, null, "	")], 
+			[JSON.stringify($scope.cgminerConfig, null, "	")],
 			{ name: "cgminer.conf", type: "application/json" }
 		));
 		a.style = "display:none";
