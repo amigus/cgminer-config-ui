@@ -12,7 +12,8 @@ angular.module('cgminerConfigUI',[]).controller('cgminerConfigCtrl', function ($
 
 		reader.onloadend = function(evt) {
 			if (evt.target.readyState == FileReader.DONE) {
-				$scope.cgminerConfig=JSON.parse(evt.target.result);
+				$scope.cgminerConfig = JSON.parse(evt.target.result);
+				$scope.prePopulated = true;
 				$scope.$apply();
 			}
 		};
