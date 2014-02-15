@@ -96,9 +96,9 @@
 				</tr>
 			</tbody>
 			<tfoot>
-				<tr data-ng-show="!cgminerConfig['pools'][cgminerConfig['pools'].length -1].url == '' || cgminerConfig['pools'].length == 0">
-					<th colspan="3" data-ng-click="addPool()" id="addPool">
-						<label>Add</label>
+				<tr>
+					<th colspan="3">
+						<a href="" data-ng-click="addPool()" data-ng-show="!cgminerConfig['pools'][cgminerConfig['pools'].length -1].url == '' || cgminerConfig['pools'].length == 0">Add</a>
 					</th>
 				</tr>
 			</tfoot>

@@ -110,12 +110,6 @@ table {
 ul {
     list-style:none;
 }
-#addPool {
-    border:1px dashed #bcbcbc;
-    border-radius:3px;
-    color:#bcbcbc;
-    font-size:0.8em;
-}
 
 /* ==========================================================================
    Helper classes
