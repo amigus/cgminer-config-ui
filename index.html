@@ -43,6 +43,7 @@
 		<label>GPU</label>
 		<input data-ng-model="cgminerConfig['auto-gpu']" type="checkbox">
 		<label>auto</label>
+		<input data-ng-change="gpusChanged()" data-ng-model="gpus" type="range" min="1" max="4">
 		<ul>
 			<li>
 				<input type="text" data-ng-model="cgminerConfig['gpu-engine']">

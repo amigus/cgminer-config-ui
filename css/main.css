@@ -100,6 +100,9 @@ input[type="button"] {
     font-weight:bold;
     margin:1em 0em;
 }
+input[type="range"] {
+    vertical-align:text-top;
+}
 li,td,th {
     padding:0.15em;
 }
