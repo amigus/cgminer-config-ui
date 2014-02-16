@@ -12,7 +12,7 @@ angular.module('cgminerConfigUI',[]).controller('cgminerConfigCtrl', function ($
 
 		reader.onloadend = function(evt) {
 			if (evt.target.readyState == FileReader.DONE) {
-				$scope.cgminerConfig = JSON.parse(evt.target.result);
+				$scope.cgminerConfig = angular.fromJson(evt.target.result);
 				$scope.gpus = $scope.cgminerConfig['intensity'].match(/,/)
 						.length + 1;
 				$scope.prePopulated = true;
@@ -67,7 +67,7 @@ angular.module('cgminerConfigUI',[]).controller('cgminerConfigCtrl', function ($
 		var a = document.createElement("a");
 		a.download = $scope.download;
 		a.href = URL.createObjectURL(new Blob(
-			[JSON.stringify($scope.cgminerConfig, null, "	")],
+			[angular.toJson($scope.cgminerConfig, true)],
 			{ name: $scope.download, type: "application/json" }
 		));
 		a.style = "display:none";
