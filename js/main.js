@@ -23,6 +23,7 @@ angular.module('cgminerConfigUI',[]).controller('cgminerConfigCtrl', function ($
 	}, false);
 
 	$scope.cgminerConfig = { pools: [] };
+	$scope.download = 'cgminer.conf';
 	$scope.gpus = 1;
 
 	($scope.addPool = function() {
@@ -64,10 +65,10 @@ angular.module('cgminerConfigUI',[]).controller('cgminerConfigCtrl', function ($
 
 	$scope.save = function() {
 		var a = document.createElement("a");
-		a.download = "cgminer.conf";
+		a.download = $scope.download;
 		a.href = URL.createObjectURL(new Blob(
 			[JSON.stringify($scope.cgminerConfig, null, "	")],
-			{ name: "cgminer.conf", type: "application/json" }
+			{ name: $scope.download, type: "application/json" }
 		));
 		a.style = "display:none";
 		document.body.appendChild(a);
