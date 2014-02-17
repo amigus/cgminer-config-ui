@@ -1,4 +1,4 @@
-angular.module('cgminerConfigUI',[]).controller('cgminerConfigCtrl', function ($scope, $window) {
+function configFileHandler(callback) {
 	document.addEventListener('dragover', function (evt) {
 		evt.stopPropagation();
 		evt.preventDefault();
@@ -8,23 +8,29 @@ angular.module('cgminerConfigUI',[]).controller('cgminerConfigCtrl', function ($
 		evt.stopPropagation();
 		evt.preventDefault();
 
-		var reader = new FileReader();
+		var reader = new FileReader(), file = evt.dataTransfer.files[0];
 
-		reader.onloadend = function(evt) {
-			if (evt.target.readyState == FileReader.DONE) {
-				$scope.cgminerConfig = angular.fromJson(evt.target.result);
-				$scope.gpus = $scope.cgminerConfig['intensity'].match(/,/)
-						.length + 1;
-				$scope.prePopulated = true;
-				$scope.$apply();
+		reader.onloadend = function(nestedEvt) {
+			if (nestedEvt.target.readyState == FileReader.DONE) {
+				callback(nestedEvt.target.result, file.name);
 			}
-		};
-		reader.readAsBinaryString(evt.dataTransfer.files[0]);
+		}
+		reader.readAsBinaryString(file);
 	}, false);
+}
 
+angular.module('cgminerConfigUI',[]).controller('cgminerConfigCtrl',
+		function ($scope, $window) {
 	$scope.cgminerConfig = { pools: [] };
 	$scope.download = 'cgminer.conf';
 	$scope.gpus = 1;
+
+	var perGPUSettings = [
+		'intensity', 'vectors', 'worksize', 'kernel', 'lookup-gap',
+		'thread-concurrency', 'shaders', 'gpu-engine', 'gpu-fan',
+		'gpu-memclock', 'gpu-memdiff', 'gpu-powertune', 'gpu-vddc',
+		'temp-cutoff', 'temp-overheat', 'temp-target'
+	];
 
 	($scope.addPool = function() {
 		var pools = $scope.cgminerConfig.pools;
@@ -55,13 +61,18 @@ angular.module('cgminerConfigUI',[]).controller('cgminerConfigCtrl', function ($
 			}
 			$scope.cgminerConfig[setting] = result.join(',');
 		}
-		for (var setting in $scope.cgminerConfig) {
-			if ('auto-fan' != setting && 'auto-gpu' != setting
-					&& 'pools' != setting && 'scrypt' != setting) {
-				adjust(setting);
-			}
-		}
+		for (var setting in $scope.cgminerConfig)
+				if (perGPUSettings.indexOf(setting) > -1)
+					adjust(setting);
 	})();
+
+	configFileHandler(function (data, filename) {
+		$scope.cgminerConfig = angular.fromJson(data);
+		$scope.download = filename;
+		$scope.gpus = $scope.cgminerConfig['intensity'].match(/,/).length + 1;
+		$scope.prePopulated = true;
+		$scope.$apply();
+	});
 
 	$scope.save = function() {
 		var a = document.createElement("a");
