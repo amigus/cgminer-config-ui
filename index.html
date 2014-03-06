@@ -6,6 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="css/normalize.css">
 		<link rel="stylesheet" href="css/main.css">
+		<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
 		<script src="js/vendor/modernizr-2.7.1.min.js"></script>
 		<title>CGMiner configuration UI</title>
 	</head>
@@ -17,7 +18,7 @@
 		<script>window.angular || document.write('<script src="js/vendor/angular-1.2.13.min.js"><\/script>')</script>
 		<script src="js/main.js"></script>
 		<h1>CGMiner configuration</h1>
-		<p data-ng-show="!prePopulated">Drop a config file onto the page to pre-populate the fields!</p>
+		<p id="notPrepopulated" data-ng-show="!prePopulated">Drop a config file onto the page to pre-populate the fields...</p>
 		<ul>
 			<li>
 				<input type="text" data-ng-model="cgminerConfig['intensity']">

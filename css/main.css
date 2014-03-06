@@ -92,9 +92,11 @@ textarea {
    ========================================================================== */
 
 body {
-    font-family:"DejaVu Sans",sans-serif;
-    margin:0.15em;
+    font-family:'Roboto Condensed','DejaVu Sans',Verdana,sans-serif;
+    margin: 1em;
 }
+
+
 input[type="button"] {
     border-radius:3px;
     font-weight:bold;
@@ -105,6 +107,13 @@ input[type="range"] {
 }
 li,td,th {
     padding:0.15em;
+}
+p#notPrepopulated {
+    display: inline-block;
+    background-color: #F0F0F0;
+    border: 1px dashed #FFFF00;
+    border-radius: 3px;
+    padding: 0.2em 0.5em;
 }
 table {
     padding:1em 0em;
