@@ -69,7 +69,8 @@ angular.module('cgminerConfigUI',[]).controller('cgminerConfigCtrl',
 	configFileHandler(function (data, filename) {
 		$scope.cgminerConfig = angular.fromJson(data);
 		$scope.download = filename;
-		$scope.gpus = $scope.cgminerConfig['intensity'].match(/,/).length + 1;
+		$scope.gpus = $scope.cgminerConfig[perGPUSettings[0]]
+				.match(/,/).length + 1;
 		$scope.prePopulated = true;
 		$scope.$apply();
 	});
