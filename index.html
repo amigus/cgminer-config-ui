@@ -19,36 +19,69 @@
 		<script src="js/main.js"></script>
 		<h1>CGMiner configuration</h1>
 		<p id="notPrepopulated" data-ng-show="!prePopulated">Drop a config file onto the page to pre-populate the fields...</p>
-		<ul>
+		<br>
+		<label>API</label>
+		<input data-ng-checked="cgminerConfig['api-listen'] || cgminerConfig['api-mcast']" data-ng-model="cgminerConfig['api-listen']" type="checkbox">
+		<label>listen</label>
+		<input data-ng-model="cgminerConfig['api-mcast']" type="checkbox">
+		<label>multicast</label>
+		<ul data-ng-show="!cgminerConfig['api-listen'] && !cgminerConfig['api-mcast']">
+		</ul>
+		<ul data-ng-show="cgminerConfig['api-listen']">
 			<li>
-				<input type="text" data-ng-model="cgminerConfig['intensity']">
-				<label>intensity</label>
+				<input type="text" data-ng-model="cgminerConfig['api-allow']">
+				<label>allow</label>
 			</li>
 			<li>
-				<input type="text" data-ng-model="cgminerConfig['gpu-threads']">
-				<label>gpu-threads</label>
+				<input type="text" data-ng-model="cgminerConfig['api-description']">
+				<label>description (default: <i>cgminer version</i>)</label>
 			</li>
 			<li>
-				<input data-ng-model="cgminerConfig['log']" type="text">
-				<label>log</label>
+				<input type="text" data-ng-model="cgminerConfig['api-groups']">
+				<label>groups</label>
 			</li>
 			<li>
-				<input data-ng-model="cgminerConfig['lookup-gap']" type="text">
-				<label>lookup-gap</label>
+				<input type="text" data-ng-disabled="cgminerConfig['api-allow']" data-ng-model="cgminerConfig['api-network']">
+				<label>network (default: 127.0.0.1)</label>
 			</li>
 			<li>
-				<input data-ng-model="cgminerConfig['thread-concurrency']" type="text">
-				<label>thread-concurrency</label>
+				<input type="text" data-ng-model="cgminerConfig['api-port']">
+				<label>port (default: 4028)</label>
+			</li>
+		</ul>
+		<ul data-ng-show="cgminerConfig['api-mcast']">
+			<li>
+				<input type="text" data-ng-model="cgminerConfig['api-mcast-addr']" >
+				<label>mcast-addr (default: 224.0.0.75)</label>
+			</li>
+			<li>
+				<input type="text" data-ng-model="cgminerConfig['api-mcast-code']" >
+				<label>mcast-code (default: FTW)</label>
+			</li>
+			<li>
+				<input type="text" data-ng-model="cgminerConfig['api-mcast-port']">
+				<label>mcast-port (default: 4028)</label>
 			</li>
 		</ul>
 		<label>GPU</label>
 		<input data-ng-model="cgminerConfig['auto-gpu']" type="checkbox">
 		<label>auto</label>
-		<input data-ng-change="gpusChanged()" data-ng-model="gpus" type="range" min="1" max="4">
-		<ul>
+		<ul data-ng-show="cgminerConfig['auto-gpu']">
+			<li>
+				<label>{{ gpus }}</label>
+				<input data-ng-change="gpusChanged()" data-ng-model="gpus" type="range" min="1" max="4">
+			</li>
 			<li>
 				<input type="text" data-ng-model="cgminerConfig['gpu-engine']">
 				<label>engine</label>
+			</li>
+			<li>
+				<input type="text" data-ng-model="cgminerConfig['gpu-fan']">
+				<label>fan</label>
+			</li>
+			<li>
+				<input type="text" data-ng-model="cgminerConfig['intensity']">
+				<label>intensity (d or 0 -> 19, default: d)</label>
 			</li>
 			<li>
 				<input data-ng-model="cgminerConfig['gpu-memclock']" type="text">
@@ -63,27 +96,45 @@
 				<label>powertune</label>
 			</li>
 			<li>
+				<input type="text" data-ng-model="cgminerConfig['gpu-threads']">
+				<label>threads (default: 2)</label>
+			</li>
+			<li>
 				<input data-ng-model="cgminerConfig['gpu-vddc']" type="text">
 				<label>vddc</label>
 			</li>
 		</ul>
+		<input data-ng-checked="cgminerConfig['scrypt']" data-ng-model="cgminerConfig['scrypt']" type="checkbox">
+			<label>scrypt</label>
+		<ul data-ng-show="cgminerConfig['scrypt']">
+			<li>
+				<input data-ng-model="cgminerConfig['lookup-gap']" type="text">
+				<label>lookup-gap</label>
+			</li>
+			<li>
+				<input data-ng-model="cgminerConfig['thread-concurrency']" type="text">
+				<label>thread-concurrency</label>
+			</li>
+		</ul>
+		<ul data-ng-show="!cgminerConfig['gpu'] && !cgminerConfig['scrypt']">
+		</ul>
 		<label>Temperature</label>
 		<input data-ng-model="cgminerConfig['auto-fan']" type="checkbox">
 		<label>auto</label>
-		<ul>
+		<ul data-ng-show="cgminerConfig['auto-fan']">
 			<li>
 			</li>
 			<li>
 				<input data-ng-model="cgminerConfig['temp-cutoff']" type="text">
-				<label>cutoff</label>
+				<label>cutoff (default: 95)</label>
 			</li>
 			<li>
 				<input data-ng-model="cgminerConfig['temp-overheat']" type="text">
-				<label>overheat</label>
+				<label>overheat (default: 85)</label>
 			</li>
 			<li>
 				<input data-ng-model="cgminerConfig['temp-target']" type="text">
-				<label>target</label>
+				<label>target (default: 75)</label>
 			</li>
 		</ul>
 		<table>
