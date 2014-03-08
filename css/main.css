@@ -115,6 +115,10 @@ p#notPrepopulated {
     border-radius: 3px;
     padding: 0.2em 0.5em;
 }
+select {
+    font-size: 0.8em;
+    vertical-align:text-top;
+}
 table {
     padding:1em 0em;
     text-align:left;

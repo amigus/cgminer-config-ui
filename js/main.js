@@ -24,6 +24,9 @@ angular.module('cgminerConfigUI',[]).controller('cgminerConfigCtrl',
 	$scope.cgminerConfig = { pools: [] };
 	$scope.download = 'cgminer.conf';
 	$scope.gpus = 1;
+	$scope.multipools = [
+		'failover-only', 'balance', 'load-balance', 'round-robin'
+	];
 
 	var perGPUSettings = [
 		'intensity', 'vectors', 'worksize', 'kernel', 'lookup-gap',
@@ -71,9 +74,23 @@ angular.module('cgminerConfigUI',[]).controller('cgminerConfigCtrl',
 		$scope.download = filename;
 		$scope.gpus = $scope.cgminerConfig[perGPUSettings[0]]
 				.match(/,/).length + 1;
+		for (var i = 0; i < $scope.multipools.length; i++) {
+			if ($scope.cgminerConfig[$scope.multipools[i]]) {
+				$scope.multipool = $scope.cgminerConfig[$scope.multipools[i]];
+			}
+		}
 		$scope.prePopulated = true;
 		$scope.$apply();
 	});
+
+	$scope.multipoolChanged = function() {
+		for (var i = 0; i < $scope.multipools.length; i++) {
+			delete $scope.cgminerConfig[$scope.multipools[i]];
+		}
+		if ($scope.multipool) {
+			$scope.cgminerConfig[$scope.multipool] = true;
+		}
+	};
 
 	$scope.save = function() {
 		var a = document.createElement("a");
