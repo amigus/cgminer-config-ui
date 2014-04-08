@@ -110,8 +110,8 @@ li,td,th {
 }
 p#notPrepopulated {
     display: inline-block;
-    background-color: #F0F0F0;
-    border: 1px dashed #FFFF00;
+    background-color: #FCFB9D;
+    border: 1px;
     border-radius: 3px;
     padding: 0.2em 0.5em;
 }
